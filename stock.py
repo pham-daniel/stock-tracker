@@ -15,3 +15,30 @@ class Backend:
         st.metric(label=".",value=price,delta=f"{round(price_diff,2)} | {round(percent_diff,2)}%",label_visibility="collapsed")
         return price, prev_close
 
+
+    def create_candlestick_chart(ticker,period,interval):
+        fig = go.Figure()
+        stock_data = yf.download(ticker, period=period,interval=interval)
+        fig.add_trace(go.Candlestick(
+        x = stock_data.index,
+        open=stock_data['Open',ticker], 
+        high=stock_data['High',ticker],  
+        low=stock_data['Low',ticker],
+        close=stock_data['Close',ticker],
+        increasing=dict(line=dict(color='green'), fillcolor='green'),
+        decreasing=dict(line=dict(color='red'), fillcolor='red')
+        ))
+        return fig
+
+    
+    def create_line_chart(ticker, price, prev_close,period,interval):
+        fig = go.Figure()
+        stock_data = yf.download(ticker, period=period,interval=interval)
+        line_color = "green" if price >= prev_close else "red"
+        fig.add_trace(go.Scatter(
+        x = stock_data.index,
+        y = stock_data["Close",ticker],
+        mode='lines',
+        line=dict(color=line_color),
+        ))
+        return fig

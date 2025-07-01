@@ -110,7 +110,7 @@ class Frontend:
 
         if st.session_state.search_triggered:
             try:
-                Backend.init_tab(st.session_state.search_query,st.session_state.graph_period) # check this
+                Backend.init_tab(st.session_state.search_query,st.session_state.graph_period)
             except Exception as e:
                 st.error(f"Error: {e} Ensure the ticker is spelt correctly.")
             st.session_state.search_triggered = False

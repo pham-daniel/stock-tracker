@@ -14,6 +14,21 @@ class Backend:
         st.subheader(f"{name}")
         st.metric(label=".",value=price,delta=f"{round(price_diff,2)} | {round(percent_diff,2)}%",label_visibility="collapsed")
         return price, prev_close
+    
+    def get_stats(ticker):
+        ticker_info = yf.Ticker(ticker).info
+        open = ticker_info.get("open")
+        high = ticker_info.get("dayHigh")
+        yearly_high = ticker_info.get("fiftyTwoWeekHigh")
+        pe_ratio = ticker_info.get("trailingPE")
+        revenue_per_share = ticker_info.get("epsTrailingTwelveMonths")
+
+        today_volume= ticker_info.get("volume")
+        low = ticker_info.get("dayLow")
+        yearly_low = ticker_info.get("fiftyTwoWeekLow")
+        dividend_yield= ticker_info.get("dividendYield")
+        market_cap = ticker_info.get("marketCap")
+        return open,high,yearly_high,pe_ratio,revenue_per_share,today_volume,low,yearly_low,dividend_yield,market_cap
 
 
     def create_candlestick_chart(ticker,period,interval):

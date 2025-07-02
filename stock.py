@@ -2,6 +2,7 @@ import yfinance as yf
 import plotly.graph_objs as go
 import streamlit as st
 
+
 class Backend:
 
     def get_ticker_info(ticker):

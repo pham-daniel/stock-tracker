@@ -20,6 +20,10 @@ cd stock-tracker
 ```
 pip install -r requirements.txt
 ```
+If the above command does not work, use this command:
+```
+python -m pip install -r requirements.txt
+```
 
 ## How to Run
 1. If you are not currently in the root main directory, follow steps 2 and 3 of the installation section.

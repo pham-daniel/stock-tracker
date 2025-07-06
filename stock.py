@@ -5,6 +5,10 @@ import streamlit as st
 
 class Backend:
 
+    @staticmethod
+    def get_ticker_news(ticker):
+        return yf.Ticker(ticker).news
+    
     def get_ticker_info(ticker):
         ticker_info = yf.Ticker(ticker).info
         name = ticker_info.get("longName") or ticker_info.get("shortName")

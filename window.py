@@ -15,7 +15,7 @@ class Frontend:
         st.session_state.search_triggered = False
 
 
-    tab1,tab2 = st.tabs(["Stock Overview","Stock Search"])
+    tab1,tab2,tab3 = st.tabs(["Stock Overview","Stock Search","News"])
 
     with tab1:
         col1, col2 = st.columns(2)
@@ -139,3 +139,34 @@ class Frontend:
                     st.caption(f"{round(dividend_yield,2)}%")
                     st.write("Market Cap")
                     st.caption(f"${market_cap}")
+    
+    with tab3:
+        news_search_input = st.text_input("Enter a stock to search for news:", value=st.session_state.search_query, key="news_search_input")
+        
+        if "news_search_triggered" not in st.session_state:
+            st.session_state.news_search_triggered = False
+            
+        if st.button("Search", key= "news_search"):
+            st.session_state.search_query = news_search_input.upper()
+            st.session_state.news_search_triggered = True   
+            st.rerun() 
+            
+        if st.session_state.news_search_triggered:
+            try:
+                ticker_news = Backend.get_ticker_news(st.session_state.search_query)
+                st.session_state.search_triggered = False
+            except Exception as e:
+                st.error(f"Error: {e} Ensure the ticker is spelt correctly.")
+                st.session_state.search_triggered = False
+                ticker_news = []
+            
+            for article in ticker_news:
+                col1, col2 = st.columns([3,2])
+                with col1:
+                    st.write(f"### [{article['content']['title']}]({article['content']['canonicalUrl']['url']})")
+                    st.text(article['content']['summary'])
+                with col2:
+                    try:
+                        st.image(article['content']['thumbnail']['originalUrl'])
+                    except:
+                        pass 

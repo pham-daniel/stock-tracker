@@ -115,7 +115,7 @@ class Frontend:
                 st.error(f"Error: {e} Ensure the ticker is spelt correctly.")
             st.session_state.search_triggered = False
             with st.container():
-                open,high,yearly_high,pe_ratio,revenue_per_share,today_volume,low,yearly_low,dividend_yield,market_cap = Backend.get_stats(st.session_state.search_query)
+                open,high,yearly_high,pe_ratio,revenue_per_share,today_volume,low,yearly_low,dividend_yield,market_cap,objective = Backend.get_stats(st.session_state.search_query)
                 col1,col2 = st.columns(2)
                 with col1:
                     st.write("Open")
@@ -139,7 +139,8 @@ class Frontend:
                     st.caption(f"{round(dividend_yield,2)}%")
                     st.write("Market Cap")
                     st.caption(f"${market_cap}")
-    
+                st.write("Description")
+                st.caption(objective)
     with tab3:
         news_search_input = st.text_input("Enter a stock to search for news:", value=st.session_state.search_query, key="news_search_input")
         

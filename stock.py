@@ -33,7 +33,8 @@ class Backend:
         yearly_low = ticker_info.get("fiftyTwoWeekLow")
         dividend_yield= ticker_info.get("dividendYield")
         market_cap = ticker_info.get("marketCap")
-        return open,high,yearly_high,pe_ratio,revenue_per_share,today_volume,low,yearly_low,dividend_yield,market_cap
+        objective = ticker_info.get("longBusinessSummary")
+        return open,high,yearly_high,pe_ratio,revenue_per_share,today_volume,low,yearly_low,dividend_yield,market_cap,objective
 
 
     def create_candlestick_chart(ticker,period,interval):
